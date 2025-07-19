@@ -31,6 +31,10 @@ transcribe() {
   # Skip if transcript already exists
   [[ -f "$out_json" ]] && { echo "• skipped (exists)  $base"; return; }
 
+
+  # //TODO: also support convert mp4 to wav
+  # ffmpeg -i input.mp4 -vn -c:a copy output.wav
+
   # Convert → WAV
   if ffmpeg -loglevel error -y -i "$src" -ar 16000 -ac 1 "$wav"; then
     # Run Whisper
