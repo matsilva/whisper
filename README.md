@@ -5,18 +5,22 @@ This directory contains optimized build scripts for different operating systems 
 ## Quick Start
 
 **Just run the universal build script:**
+
 ```bash
 ./build.sh
 ```
+
 It will automatically detect your OS and run the appropriate build script.
 
 ## Available Build Scripts
 
 ### 🚀 Universal Build Script
+
 - **`build.sh`** - Automatically detects OS and runs appropriate script
 - Supports macOS, Linux (Arch, Ubuntu/Debian), and provides guidance for Windows
 
 ### 🍎 macOS Apple Silicon (M1/M2/M3/M4)
+
 - **`build-macos-apple-silicon.sh`** - Optimized for Apple Silicon
 - Features:
   - Core ML support for Neural Engine acceleration (3x+ speedup)
@@ -26,6 +30,7 @@ It will automatically detect your OS and run the appropriate build script.
   - Automatic model quantization to Q5_1
 
 ### 🐧 Arch Linux
+
 - **`build-arch-linux.sh`** - Optimized for Arch Linux
 - Features:
   - AVX2/AVX512 CPU optimizations for AMD Ryzen AI 9 HX 370
@@ -37,6 +42,7 @@ It will automatically detect your OS and run the appropriate build script.
 ## Utility Scripts
 
 ### 📦 Model Quantization
+
 - **`quantize-model.sh`** - Universal model quantization utility
 - Interactive model selection
 - Batch quantization support
@@ -45,12 +51,14 @@ It will automatically detect your OS and run the appropriate build script.
 ## Performance Optimizations by Platform
 
 ### macOS Apple Silicon
+
 - **Core ML**: Uses Neural Engine for encoder (3x faster)
 - **Metal**: GPU acceleration for matrix operations
 - **Accelerate**: Optimized BLAS operations
 - **Q5_1 Quantization**: 50% size reduction, minimal quality loss
 
 ### Arch Linux (AMD Ryzen AI)
+
 - **AVX512**: Advanced vector instructions
 - **OpenBLAS**: Optimized linear algebra
 - **OpenMP**: Multi-threading across 24 cores
@@ -59,15 +67,18 @@ It will automatically detect your OS and run the appropriate build script.
 ## Model Recommendations
 
 ### For Quality (Large models recommended)
+
 - **large-v3-turbo**: Best balance of speed/quality
 - **large-v3**: Highest quality
 
 ### For Speed (Smaller models)
+
 - **medium**: Good balance for most use cases
 - **small**: Real-time capable
 - **base**: Very fast, acceptable quality
 
 ### Quantization Options
+
 - **Q5_1**: Recommended (50% smaller, 4% quality loss)
 - **Q8_0**: Minimal quality loss (30% smaller)
 - **Q4_0**: Maximum compression (65% smaller, noticeable quality loss)
@@ -75,6 +86,7 @@ It will automatically detect your OS and run the appropriate build script.
 ## Usage Examples
 
 ### Basic Transcription
+
 ```bash
 # Auto-detect best model
 ./build/bin/whisper-cli -f audio.wav
@@ -84,11 +96,13 @@ It will automatically detect your OS and run the appropriate build script.
 ```
 
 ### Real-time Microphone
+
 ```bash
 ./build/bin/whisper-stream -m models/ggml-large-v3-turbo-q5_1.bin
 ```
 
 ### Batch Processing
+
 ```bash
 # Process multiple files
 for file in *.wav; do
@@ -109,31 +123,22 @@ whisper.cpp/
 └── README.md                         # This file
 ```
 
-## Migration from Old Setup
-
-If you were using `docs/readme_cheatsheet.md`:
-- Replace manual steps with `./build-macos-apple-silicon.sh`
-- All dependencies and optimizations are included
-- Core ML conversion is automated
-
-If you were using manual CMake:
-- Use OS-specific build script instead
-- All optimizations are pre-configured
-- Models are automatically quantized
-
 ## Troubleshooting
 
 ### macOS Issues
+
 - **"libomp not found"**: Run `brew install libomp`
 - **Core ML compilation slow**: First run compiles model, subsequent runs are fast
 - **Python issues**: Delete `.venv` folder and re-run build script
 
 ### Linux Issues
+
 - **Missing dependencies**: Build script will prompt to install
 - **Slow compilation**: Ensure using all CPU threads (`-t $(nproc)`)
 - **Permission errors**: Make sure scripts are executable (`chmod +x`)
 
 ### General
+
 - **Model not found**: Run `./models/download-ggml-model.sh <model-name>`
 - **Out of memory**: Use smaller model or quantized version
 - **Slow inference**: Check if using all CPU threads (`-t` flag)
@@ -141,7 +146,9 @@ If you were using manual CMake:
 ## Contributing
 
 To add support for new operating systems:
+
 1. Create `build-<os-name>.sh` following existing patterns
 2. Add detection logic to `build.sh`
 3. Test on target platform
 4. Update this documentation
+
